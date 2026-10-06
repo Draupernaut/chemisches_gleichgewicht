@@ -20,14 +20,26 @@
       <h1>Dynamisches chemisches Gleichgewicht</h1>
       <div class="sub">Jetzt mit klarerer Produktfarbe, Zwei-Seiten-Ansicht und schrittweiser Steuerung.</div>
     </div>
-    <div class="header-actions">
+    <div class="header-actions" id="chemHeaderActions">
       <button id="playBtn" class="primary">⏸ Pause</button>
       <button id="stepBtn">⏭ 1 Runde</button>
       <button id="resetBtn">↺ Zurücksetzen</button>
       <button id="fullBtn" class="ghost">⛶ Vollbild</button>
     </div>
+    <div class="header-actions" id="exchangeHeaderActions" hidden>
+      <button id="exchangePlayBtn" class="primary">▶ Auto</button>
+      <button id="exchangeStepBtn">⏭ 1 Runde</button>
+      <button id="exchangeResetBtn">↺ Zurücksetzen</button>
+      <button id="exchangeFullBtn" class="ghost">⛶ Vollbild</button>
+    </div>
   </header>
 
+  <nav class="model-tabs" aria-label="Modell auswählen">
+    <button class="active" data-model-tab="chem">Teilchenreaktion · A + B ⇌ C</button>
+    <button data-model-tab="exchange">Tauschmodell · A ⇌ B</button>
+  </nav>
+
+  <div id="chemModel" class="model-panel active">
   <div class="top-grid">
     <section class="card sim-card">
       <div class="reaction-bar">
@@ -139,7 +151,100 @@
       Die Teilchenbewegung dient der Anschaulichkeit; es wird <b>keine echte Molekulardynamik</b> simuliert. Wegen der bewusst kleinen Teilchenzahlen bleiben Schwankungen sichtbar – das ist didaktisch gewollt.
     </div>
   </details>
-</div>
+  </div>
+
+  <div id="exchangeModel" class="model-panel" hidden>
+    <div class="top-grid exchange-top">
+      <section class="card sim-card">
+        <div class="reaction-bar exchange-reaction-bar">
+          <div class="species"><span class="dot a"></span>A</div>
+          <div class="equation">A ⇌ B</div>
+          <div class="species right"><span class="dot c"></span>B</div>
+        </div>
+        <div class="exchange-strip">
+          <div class="rate"><div class="arrow">→</div><div><strong id="exchangeForwardNow">6</strong><small id="exchangeForwardLabel">A → B pro Runde</small></div></div>
+          <div class="rate"><div class="arrow">←</div><div><strong id="exchangeReverseNow">6</strong><small id="exchangeReverseLabel">B → A pro Runde</small></div></div>
+          <div class="rate"><div class="arrow">#</div><div><strong>Runde <span id="exchangeRound">0</span></strong><small id="exchangeBalanceLabel">noch keine Runde</small></div></div>
+        </div>
+        <div class="canvas-wrap exchange-canvas-wrap">
+          <canvas id="exchangeWorld"></canvas>
+          <div class="world-badge"><strong>Tauschmodell</strong><span>beide Richtungen werden pro Runde gleichzeitig ausgeführt</span></div>
+          <div class="eq-badge"><i id="exchangeEqLight" class="eq-light"></i><span id="exchangeEqText">Bestände verändern sich</span></div>
+          <div class="round-badge"><b id="exchangeModeBadge">Fester Austausch</b><div id="exchangeRuleBadge">6 A → B · 6 B → A</div></div>
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="card graph-card">
+          <div class="card-title">
+            <div><h2>Bestände nach jeder Runde</h2><p>A und B über der Rundenzahl</p></div>
+            <button id="exchangeClearGraph" class="ghost" style="padding:7px 9px">Verlauf löschen</button>
+          </div>
+          <canvas id="exchangeGraph"></canvas>
+          <div class="legend">
+            <span><i class="sw" style="background:var(--a)"></i>A</span>
+            <span><i class="sw" style="background:var(--c)"></i>B</span>
+          </div>
+        </section>
+        <section class="card graph-card">
+          <div class="card-title"><div><h2>Aktueller Bestand</h2><p>Gesamtzahl bleibt im Tauschmodell konstant</p></div></div>
+          <div class="stats">
+            <div class="stat"><small>A</small><strong id="exchangeAStat">12</strong><div class="mini" id="exchangeAPct">33,3 %</div></div>
+            <div class="stat"><small>B</small><strong id="exchangeBStat">24</strong><div class="mini" id="exchangeBPct">66,7 %</div></div>
+            <div class="stat"><small>Gesamt</small><strong id="exchangeTotalStat">36</strong><div class="mini">konstant</div></div>
+            <div class="stat"><small>Nettoänderung letzte Runde</small><strong id="exchangeNetStat">0</strong><div class="mini">für A</div></div>
+            <div class="stat wide-stat"><small>Erwartete Gleichgewichtslage</small><strong id="exchangeTargetStat">bei gleichem Austausch: jeder Bestand möglich</strong><div class="mini" id="exchangeTargetMini">Entscheidend ist: pro Runde wechseln gleich viele in beide Richtungen.</div></div>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <div class="bottom-grid">
+      <section class="card controls">
+        <div class="section-head">
+          <h2>Tauschregel einstellen</h2>
+          <div class="preset-row">
+            <button id="exchangeSlidePreset">Folie: 12 / 24 · je 6</button>
+            <button id="exchangePercentPreset">Beispiel: 20 % / 10 %</button>
+          </div>
+        </div>
+        <div class="exchange-form-grid">
+          <label class="field"><span>Startbestand A</span><input id="exchangeStartA" type="number" min="0" max="120" step="1" value="12"></label>
+          <label class="field"><span>Startbestand B</span><input id="exchangeStartB" type="number" min="0" max="120" step="1" value="24"></label>
+          <div class="field full-field"><span>Austauschregel</span><div class="segment">
+            <button id="exchangeFixedMode" class="active" type="button">Feste Anzahl</button>
+            <button id="exchangePercentMode" type="button">Prozent des Bestands</button>
+          </div></div>
+          <label class="field exchange-fixed-field"><span>A → B pro Runde</span><input id="exchangeForwardFixed" type="number" min="0" max="120" step="1" value="6"></label>
+          <label class="field exchange-fixed-field"><span>B → A pro Runde</span><input id="exchangeReverseFixed" type="number" min="0" max="120" step="1" value="6"></label>
+          <label class="field exchange-percent-field" hidden><span>A → B pro Runde</span><div class="input-suffix"><input id="exchangeForwardPct" type="number" min="0" max="100" step="1" value="20"><span>%</span></div></label>
+          <label class="field exchange-percent-field" hidden><span>B → A pro Runde</span><div class="input-suffix"><input id="exchangeReversePct" type="number" min="0" max="100" step="1" value="10"><span>%</span></div></label>
+          <label class="field"><span>Zeitintervall im Auto-Modus</span><div class="input-suffix"><input id="exchangeInterval" type="number" min="0.4" max="10" step="0.1" value="1.5"><span>s</span></div></label>
+          <div class="field"><span>Startwerte übernehmen</span><button id="exchangeApplyStart" type="button">↺ Mit diesen Startwerten beginnen</button></div>
+        </div>
+        <div class="note"><b>Simultaner Tausch:</b> Beide Übertragungsmengen werden aus den Beständen <em>zu Beginn</em> einer Runde bestimmt und danach gleichzeitig angewendet. Im Prozentmodus wird auf ganze Teilchen gerundet.</div>
+      </section>
+
+      <section class="card perturb exchange-history-card">
+        <div class="section-head"><h2>Rundenprotokoll</h2><span style="color:var(--muted);font-size:12px">ideal für die Auswertung im Unterricht</span></div>
+        <div class="exchange-summary" id="exchangeRoundSummary">Runde 0 · A = 12 · B = 24</div>
+        <div class="table-wrap">
+          <table class="round-table">
+            <thead><tr><th>Runde</th><th>A vorher</th><th>A→B</th><th>B→A</th><th>A nachher</th><th>B nachher</th></tr></thead>
+            <tbody id="exchangeTableBody"><tr><td>0</td><td>12</td><td>–</td><td>–</td><td>12</td><td>24</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <details>
+      <summary>▸ Was zeigt dieses Tauschmodell – und was nicht?</summary>
+      <div class="inside">
+        Das Modell zeigt besonders gut das Kennzeichen eines <b>dynamischen Gleichgewichts</b>: Obwohl weiterhin Teilchen in beide Richtungen wechseln, können die makroskopischen Bestände konstant bleiben. Bei einer prozentualen Austauschregel entsteht zusätzlich eine bestimmte Gleichgewichtslage, weil die übertragene Teilchenzahl vom jeweiligen Bestand abhängt. Das Modell erklärt aber noch <b>nicht</b>, warum reale chemische Reaktionen gerade diese Geschwindigkeiten besitzen.
+      </div>
+    </details>
+  </div>
+
 <div class="toast" id="toast"></div>
 <script src="app.js"></script>
 </body>
