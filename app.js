@@ -174,7 +174,15 @@
   $$('#modeButtons button').forEach(b=>b.onclick=()=>{ setMode(b.dataset.mode); if(b.dataset.mode==='step'){ paused=true; $('#playBtn').textContent='▶ Weiter'; } else { paused=false; $('#playBtn').textContent='⏸ Pause'; } });
   $$('[data-preset]').forEach(b=>b.onclick=()=>{ const p=b.dataset.preset; if(p==='balanced'){ state.kf=.06; state.kr=.48; state.V=1; setCounts(12,12,4); } if(p==='product'){ state.kf=.22; state.kr=.10; state.V=1; setCounts(14,14,2); } if(p==='reactant'){ state.kf=.03; state.kr=.52; state.V=1; setCounts(9,9,7); } modelT=0; graphClock=0; history=[]; lastRates={f:0,r:0}; lastStep={f:0,r:0}; eqScore=0; syncControls(); particles.forEach(insideZone); toast('Preset geladen'); });
 
-  function loop(now){ const dt=Math.min(.05,(now-last)/1000); last=now; if(!paused && simMode==='continuous') simulateContinuous(dt); move(dt); drawWorld(); drawGraph(); updateUI(); requestAnimationFrame(loop); }
+  function loop(now){
+    const dt=Math.min(.05,(now-last)/1000); last=now;
+    const chemActive = !$('#chemModel') || !$('#chemModel').hidden;
+    if(chemActive){
+      if(!paused && simMode==='continuous') simulateContinuous(dt);
+      move(dt); drawWorld(); drawGraph(); updateUI();
+    }
+    requestAnimationFrame(loop);
+  }
   window.addEventListener('resize',()=>{ DPR=Math.min(devicePixelRatio||1,2); particles.forEach(insideZone); });
 
   setCounts(init.A,init.B,init.C); syncControls(); setView('reactor'); setMode('continuous'); history.push({t:0,...counts()}); requestAnimationFrame(loop);
