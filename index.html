@@ -60,20 +60,9 @@
       </div>
 
       <div class="rate-strip">
-        <div class="rate">
-          <div class="arrow">→</div>
-          <div><strong id="rfTxt">0,00</strong><small>erwartete Hinreaktionen / s</small></div>
-          <div class="rate-bar"><i id="fbar"></i></div>
-        </div>
-        <div class="rate">
-          <div class="arrow">←</div>
-          <div><strong id="rrTxt">0,00</strong><small>erwartete Rückreaktionen / s</small></div>
-          <div class="rate-bar"><i id="rbar"></i></div>
-        </div>
-        <div class="rate step">
-          <div class="arrow">⇄</div>
-          <div><strong id="stepTxt">—</strong><small>letzte Runde: A+B→C / C→A+B</small></div>
-        </div>
+        <div class="rate"><div class="arrow">→</div><div><strong id="rfTxt">0,00</strong><small>erwartete Hinreaktionen / s</small></div><div class="rate-bar"><i id="fbar"></i></div></div>
+        <div class="rate"><div class="arrow">←</div><div><strong id="rrTxt">0,00</strong><small>erwartete Rückreaktionen / s</small></div><div class="rate-bar"><i id="rbar"></i></div></div>
+        <div class="rate step"><div class="arrow">⇄</div><div><strong id="stepTxt">—</strong><small>letzte Runde: A+B→C / C→A+B</small></div></div>
       </div>
 
       <div class="canvas-wrap">
@@ -85,136 +74,43 @@
     </section>
 
     <aside class="side">
-      <section class="card graph-card">
-        <div class="card-title">
-          <div><h2>Teilchenzahlen über der Zeit</h2><p>gleitend, letzte 45 Modellsekunden</p></div>
-          <button id="clearGraph" class="ghost" style="padding:7px 9px">Graph löschen</button>
-        </div>
-        <canvas id="graph"></canvas>
-        <div class="legend">
-          <span><i class="sw" style="background:var(--a)"></i>A</span>
-          <span><i class="sw" style="background:var(--b)"></i>B</span>
-          <span><i class="sw" style="background:var(--c)"></i>C</span>
-        </div>
-      </section>
-
-      <section class="card graph-card">
-        <div class="card-title"><div><h2>Was sagt das System gerade?</h2><p>Modellgrößen, bewusst ohne Einheit</p></div></div>
-        <div class="stats">
-          <div class="stat"><small>A</small><strong id="nA">—</strong><div class="mini">Edukt 1</div></div>
-          <div class="stat"><small>B</small><strong id="nB">—</strong><div class="mini">Edukt 2</div></div>
-          <div class="stat"><small>C</small><strong id="nC">—</strong><div class="mini">Produkt</div></div>
-          <div class="stat"><small>Volumen V</small><strong id="volStat">—</strong><div class="mini">relative Modellgröße</div></div>
-          <div class="stat"><small>Reaktionsquotient Q</small><strong id="qStat">—</strong><div class="mini">n(C)·V / [n(A)·n(B)]</div></div>
-          <div class="stat"><small>Modell-K</small><strong id="kStat">—</strong><div class="mini">k<sub>hin</sub> / k<sub>rück</sub></div></div>
-        </div>
-      </section>
+      <section class="card graph-card"><div class="card-title"><div><h2>Teilchenzahlen über der Zeit</h2><p>gleitend, letzte 45 Modellsekunden</p></div><button id="clearGraph" class="ghost" style="padding:7px 9px">Graph löschen</button></div><canvas id="graph"></canvas><div class="legend"><span><i class="sw" style="background:var(--a)"></i>A</span><span><i class="sw" style="background:var(--b)"></i>B</span><span><i class="sw" style="background:var(--c)"></i>C</span></div></section>
+      <section class="card graph-card"><div class="card-title"><div><h2>Was sagt das System gerade?</h2><p>Modellgrößen, bewusst ohne Einheit</p></div></div><div class="stats"><div class="stat"><small>A</small><strong id="nA">—</strong><div class="mini">Edukt 1</div></div><div class="stat"><small>B</small><strong id="nB">—</strong><div class="mini">Edukt 2</div></div><div class="stat"><small>C</small><strong id="nC">—</strong><div class="mini">Produkt</div></div><div class="stat"><small>Volumen V</small><strong id="volStat">—</strong><div class="mini">relative Modellgröße</div></div><div class="stat"><small>Reaktionsquotient Q</small><strong id="qStat">—</strong><div class="mini">n(C)·V / [n(A)·n(B)]</div></div><div class="stat"><small>Modell-K</small><strong id="kStat">—</strong><div class="mini">k<sub>hin</sub> / k<sub>rück</sub></div></div></div></section>
     </aside>
   </div>
 
   <div class="bottom-grid">
-    <section class="card controls">
-      <div class="section-head">
-        <h2>Modell einstellen</h2>
-        <div class="preset-row">
-          <button data-preset="balanced">Ausgeglichen</button>
-          <button data-preset="product">Produktseite</button>
-          <button data-preset="reactant">Eduktseite</button>
-        </div>
-      </div>
-      <div class="sliders">
-        <div class="control"><label>k<sub>hin</sub> <output id="kfOut"></output></label><input id="kf" type="range" min="0.02" max="0.55" step="0.01" value="0.06"></div>
-        <div class="control"><label>k<sub>rück</sub> <output id="krOut"></output></label><input id="kr" type="range" min="0.02" max="0.55" step="0.01" value="0.48"></div>
-        <div class="control"><label>Volumen V <output id="volOut"></output></label><input id="vol" type="range" min="0.60" max="1.60" step="0.05" value="1.00"></div>
-        <div class="control"><label>Simulationsgeschwindigkeit <output id="speedOut"></output></label><input id="speed" type="range" min="0.35" max="2.50" step="0.05" value="1.00"></div>
-      </div>
-      <div class="note"><b>Neu:</b> In der Zwei-Seiten-Ansicht liegen A und B links, C rechts. So erkennt man schneller, wie sich das Verhältnis zwischen Edukten und Produkt verändert. Im Schrittmodus kannst du einzelne Runden bewusst auslösen und beobachten.</div>
-    </section>
-
-    <section class="card perturb">
-      <div class="section-head"><h2>Gleichgewicht stören</h2><span style="color:var(--muted);font-size:12px">Le-Chatelier beobachten</span></div>
-      <div class="perturb-grid">
-        <button id="addA"><b>+ 4 A hinzufügen</b><span>Konzentration eines Edukts erhöhen</span></button>
-        <button id="addB"><b>+ 4 B hinzufügen</b><span>Konzentration des zweiten Edukts erhöhen</span></button>
-        <button id="removeC"><b>− 3 C entziehen</b><span>Produkt aus dem System entfernen</span></button>
-        <button id="compress"><b>Volumen halbieren</b><span>Stoßwahrscheinlichkeit der Edukte erhöhen</span></button>
-      </div>
-    </section>
+    <section class="card controls"><div class="section-head"><h2>Modell einstellen</h2><div class="preset-row"><button data-preset="balanced">Ausgeglichen</button><button data-preset="product">Produktseite</button><button data-preset="reactant">Eduktseite</button></div></div><div class="sliders"><div class="control"><label>k<sub>hin</sub> <output id="kfOut"></output></label><input id="kf" type="range" min="0.02" max="0.55" step="0.01" value="0.06"></div><div class="control"><label>k<sub>rück</sub> <output id="krOut"></output></label><input id="kr" type="range" min="0.02" max="0.55" step="0.01" value="0.48"></div><div class="control"><label>Volumen V <output id="volOut"></output></label><input id="vol" type="range" min="0.60" max="1.60" step="0.05" value="1.00"></div><div class="control"><label>Simulationsgeschwindigkeit <output id="speedOut"></output></label><input id="speed" type="range" min="0.35" max="2.50" step="0.05" value="1.00"></div></div><div class="note"><b>Neu:</b> In der Zwei-Seiten-Ansicht liegen A und B links, C rechts. So erkennt man schneller, wie sich das Verhältnis zwischen Edukten und Produkt verändert. Im Schrittmodus kannst du einzelne Runden bewusst auslösen und beobachten.</div></section>
+    <section class="card perturb"><div class="section-head"><h2>Gleichgewicht stören</h2><span style="color:var(--muted);font-size:12px">Le-Chatelier beobachten</span></div><div class="perturb-grid"><button id="addA"><b>+ 4 A hinzufügen</b><span>Konzentration eines Edukts erhöhen</span></button><button id="addB"><b>+ 4 B hinzufügen</b><span>Konzentration des zweiten Edukts erhöhen</span></button><button id="removeC"><b>− 3 C entziehen</b><span>Produkt aus dem System entfernen</span></button><button id="compress"><b>Volumen halbieren</b><span>Stoßwahrscheinlichkeit der Edukte erhöhen</span></button></div></section>
   </div>
 
-  <details>
-    <summary>▸ Modellannahmen & didaktische Einordnung</summary>
-    <div class="inside">
-      Das Modell bildet eine elementare Reaktion <b>A + B ⇌ C</b> ab. Reaktionsereignisse werden stochastisch aus den Geschwindigkeitsansätzen
-      <span class="formula">r→ ∝ k<sub>hin</sub> · n(A) · n(B) / V</span> und
-      <span class="formula">r← ∝ k<sub>rück</sub> · n(C)</span> gezogen.
-      Die Teilchenbewegung dient der Anschaulichkeit; es wird <b>keine echte Molekulardynamik</b> simuliert. Wegen der bewusst kleinen Teilchenzahlen bleiben Schwankungen sichtbar – das ist didaktisch gewollt.
-    </div>
-  </details>
+  <details><summary>▸ Modellannahmen & didaktische Einordnung</summary><div class="inside">Das Modell bildet eine elementare Reaktion <b>A + B ⇌ C</b> ab. Reaktionsereignisse werden stochastisch aus den Geschwindigkeitsansätzen <span class="formula">r→ ∝ k<sub>hin</sub> · n(A) · n(B) / V</span> und <span class="formula">r← ∝ k<sub>rück</sub> · n(C)</span> gezogen. Die Teilchenbewegung dient der Anschaulichkeit; es wird <b>keine echte Molekulardynamik</b> simuliert. Wegen der bewusst kleinen Teilchenzahlen bleiben Schwankungen sichtbar – das ist didaktisch gewollt.</div></details>
   </div>
 
   <div id="exchangeModel" class="model-panel" hidden>
     <div class="top-grid exchange-top">
       <section class="card sim-card">
-        <div class="reaction-bar exchange-reaction-bar">
-          <div class="species"><span class="dot a"></span>A</div>
-          <div class="equation">A ⇌ B</div>
-          <div class="species right"><span class="dot c"></span>B</div>
-        </div>
+        <div class="reaction-bar exchange-reaction-bar"><div class="species"><span class="dot a"></span>A</div><div class="equation">A ⇌ B</div><div class="species right"><span class="dot c"></span>B</div></div>
         <div class="exchange-strip">
           <div class="rate"><div class="arrow">→</div><div><strong id="exchangeForwardNow">6</strong><small id="exchangeForwardLabel">A → B pro Runde</small></div></div>
           <div class="rate"><div class="arrow">←</div><div><strong id="exchangeReverseNow">6</strong><small id="exchangeReverseLabel">B → A pro Runde</small></div></div>
           <div class="rate"><div class="arrow">#</div><div><strong>Runde <span id="exchangeRound">0</span></strong><small id="exchangeBalanceLabel">noch keine Runde</small></div></div>
         </div>
-        <div class="canvas-wrap exchange-canvas-wrap">
-          <canvas id="exchangeWorld"></canvas>
-          <div class="world-badge"><strong>Tauschmodell</strong><span>beide Richtungen werden pro Runde gleichzeitig ausgeführt</span></div>
-          <div class="eq-badge"><i id="exchangeEqLight" class="eq-light"></i><span id="exchangeEqText">Bestände verändern sich</span></div>
-          <div class="round-badge"><b id="exchangeModeBadge">Fester Austausch</b><div id="exchangeRuleBadge">6 A → B · 6 B → A</div></div>
-        </div>
+        <div class="canvas-wrap exchange-canvas-wrap"><canvas id="exchangeWorld"></canvas><div class="world-badge"><strong>Tauschmodell</strong><span>beide Richtungen werden pro Runde gleichzeitig ausgeführt</span></div><div class="eq-badge"><i id="exchangeEqLight" class="eq-light"></i><span id="exchangeEqText">Bestände verändern sich</span></div><div class="round-badge"><b id="exchangeModeBadge">Fester Austausch</b><div id="exchangeRuleBadge">6 A → B · 6 B → A</div></div></div>
       </section>
-
       <aside class="side">
-        <section class="card graph-card">
-          <div class="card-title">
-            <div><h2>Bestände nach jeder Runde</h2><p>A und B über der Rundenzahl</p></div>
-            <button id="exchangeClearGraph" class="ghost" style="padding:7px 9px">Verlauf löschen</button>
-          </div>
-          <canvas id="exchangeGraph"></canvas>
-          <div class="legend">
-            <span><i class="sw" style="background:var(--a)"></i>A</span>
-            <span><i class="sw" style="background:var(--c)"></i>B</span>
-          </div>
-        </section>
-        <section class="card graph-card">
-          <div class="card-title"><div><h2>Aktueller Bestand</h2><p>Gesamtzahl bleibt im Tauschmodell konstant</p></div></div>
-          <div class="stats">
-            <div class="stat"><small>A</small><strong id="exchangeAStat">12</strong><div class="mini" id="exchangeAPct">33,3 %</div></div>
-            <div class="stat"><small>B</small><strong id="exchangeBStat">24</strong><div class="mini" id="exchangeBPct">66,7 %</div></div>
-            <div class="stat"><small>Gesamt</small><strong id="exchangeTotalStat">36</strong><div class="mini">konstant</div></div>
-            <div class="stat"><small>Nettoänderung letzte Runde</small><strong id="exchangeNetStat">0</strong><div class="mini">für A</div></div>
-            <div class="stat wide-stat"><small>Erwartete Gleichgewichtslage</small><strong id="exchangeTargetStat">bei gleichem Austausch: jeder Bestand möglich</strong><div class="mini" id="exchangeTargetMini">Entscheidend ist: pro Runde wechseln gleich viele in beide Richtungen.</div></div>
-          </div>
-        </section>
+        <section class="card graph-card"><div class="card-title"><div><h2>Bestände nach jeder Runde</h2><p>A und B über der Rundenzahl</p></div><button id="exchangeClearGraph" class="ghost" style="padding:7px 9px">Verlauf löschen</button></div><canvas id="exchangeGraph"></canvas><div class="legend"><span><i class="sw" style="background:var(--a)"></i>A</span><span><i class="sw" style="background:var(--c)"></i>B</span></div></section>
+        <section class="card graph-card"><div class="card-title"><div><h2>Aktueller Bestand</h2><p>Gesamtzahl bleibt im Tauschmodell konstant</p></div></div><div class="stats"><div class="stat"><small>A</small><strong id="exchangeAStat">12</strong><div class="mini" id="exchangeAPct">33,3 %</div></div><div class="stat"><small>B</small><strong id="exchangeBStat">24</strong><div class="mini" id="exchangeBPct">66,7 %</div></div><div class="stat"><small>Gesamt</small><strong id="exchangeTotalStat">36</strong><div class="mini">konstant</div></div><div class="stat"><small>Nettoänderung letzte Runde</small><strong id="exchangeNetStat">0</strong><div class="mini">für A</div></div><div class="stat wide-stat"><small>Erwartete Gleichgewichtslage</small><strong id="exchangeTargetStat">bei gleichem Austausch: jeder Bestand möglich</strong><div class="mini" id="exchangeTargetMini">Entscheidend ist: pro Runde wechseln gleich viele in beide Richtungen.</div></div></div></section>
       </aside>
     </div>
 
     <div class="bottom-grid">
       <section class="card controls">
-        <div class="section-head">
-          <h2>Tauschregel einstellen</h2>
-          <div class="preset-row">
-            <button id="exchangeSlidePreset">Folie: 12 / 24 · je 6</button>
-            <button id="exchangePercentPreset">Beispiel: 20 % / 10 %</button>
-          </div>
-        </div>
+        <div class="section-head"><h2>Tauschregel einstellen</h2><div class="preset-row"><button id="exchangeSlidePreset">Folie: 12 / 24 · je 6</button><button id="exchangePercentPreset">Beispiel: 20 % / 10 %</button></div></div>
         <div class="exchange-form-grid">
           <label class="field"><span>Startbestand A</span><input id="exchangeStartA" type="number" min="0" max="120" step="1" value="12"></label>
           <label class="field"><span>Startbestand B</span><input id="exchangeStartB" type="number" min="0" max="120" step="1" value="24"></label>
-          <div class="field full-field"><span>Austauschregel</span><div class="segment">
-            <button id="exchangeFixedMode" class="active" type="button">Feste Anzahl</button>
-            <button id="exchangePercentMode" type="button">Prozent des Bestands</button>
-          </div></div>
+          <div class="field full-field"><span>Austauschregel</span><div class="segment"><button id="exchangeFixedMode" class="active" type="button">Feste Anzahl</button><button id="exchangePercentMode" type="button">Prozent des Bestands</button></div></div>
           <label class="field exchange-fixed-field"><span>A → B pro Runde</span><input id="exchangeForwardFixed" type="number" min="0" max="120" step="1" value="6"></label>
           <label class="field exchange-fixed-field"><span>B → A pro Runde</span><input id="exchangeReverseFixed" type="number" min="0" max="120" step="1" value="6"></label>
           <label class="field exchange-percent-field" hidden><span>A → B pro Runde</span><div class="input-suffix"><input id="exchangeForwardPct" type="number" min="0" max="100" step="1" value="20"><span>%</span></div></label>
@@ -224,28 +120,14 @@
         </div>
         <div class="note"><b>Simultaner Tausch:</b> Beide Übertragungsmengen werden aus den Beständen <em>zu Beginn</em> einer Runde bestimmt und danach gleichzeitig angewendet. Im Prozentmodus wird auf ganze Teilchen gerundet.</div>
       </section>
-
-      <section class="card perturb exchange-history-card">
-        <div class="section-head"><h2>Rundenprotokoll</h2><span style="color:var(--muted);font-size:12px">ideal für die Auswertung im Unterricht</span></div>
-        <div class="exchange-summary" id="exchangeRoundSummary">Runde 0 · A = 12 · B = 24</div>
-        <div class="table-wrap">
-          <table class="round-table">
-            <thead><tr><th>Runde</th><th>A vorher</th><th>A→B</th><th>B→A</th><th>A nachher</th><th>B nachher</th></tr></thead>
-            <tbody id="exchangeTableBody"><tr><td>0</td><td>12</td><td>–</td><td>–</td><td>12</td><td>24</td></tr></tbody>
-          </table>
-        </div>
-      </section>
+      <section class="card perturb exchange-history-card"><div class="section-head"><h2>Rundenprotokoll</h2><span style="color:var(--muted);font-size:12px">ideal für die Auswertung im Unterricht</span></div><div class="exchange-summary" id="exchangeRoundSummary">Runde 0 · A = 12 · B = 24</div><div class="table-wrap"><table class="round-table"><thead><tr><th>Runde</th><th>A vorher</th><th>A→B</th><th>B→A</th><th>A nachher</th><th>B nachher</th></tr></thead><tbody id="exchangeTableBody"><tr><td>0</td><td>12</td><td>–</td><td>–</td><td>12</td><td>24</td></tr></tbody></table></div></section>
     </div>
 
-    <details>
-      <summary>▸ Was zeigt dieses Tauschmodell – und was nicht?</summary>
-      <div class="inside">
-        Das Modell zeigt besonders gut das Kennzeichen eines <b>dynamischen Gleichgewichts</b>: Obwohl weiterhin Teilchen in beide Richtungen wechseln, können die makroskopischen Bestände konstant bleiben. Bei einer prozentualen Austauschregel entsteht zusätzlich eine bestimmte Gleichgewichtslage, weil die übertragene Teilchenzahl vom jeweiligen Bestand abhängt. Das Modell erklärt aber noch <b>nicht</b>, warum reale chemische Reaktionen gerade diese Geschwindigkeiten besitzen.
-      </div>
-    </details>
+    <details><summary>▸ Was zeigt dieses Tauschmodell – und was nicht?</summary><div class="inside">Das Modell zeigt besonders gut das Kennzeichen eines <b>dynamischen Gleichgewichts</b>: Obwohl weiterhin Teilchen in beide Richtungen wechseln, können die makroskopischen Bestände konstant bleiben. Bei einer prozentualen Austauschregel entsteht zusätzlich eine bestimmte Gleichgewichtslage, weil die übertragene Teilchenzahl vom jeweiligen Bestand abhängt. Das Modell erklärt aber noch <b>nicht</b>, warum reale chemische Reaktionen gerade diese Geschwindigkeiten besitzen.</div></details>
   </div>
 
 <div class="toast" id="toast"></div>
 <script src="app.js"></script>
+<script src="exchange.js"></script>
 </body>
 </html>
