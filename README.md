@@ -1,6 +1,9 @@
 # Dynamisches chemisches Gleichgewicht
 
-Interaktives Unterrichtsmodell für **A + B ⇌ C**.
+Interaktives Unterrichtsmodell für **A + B ⇌ C** und ergänzend ein **Tauschmodell A ⇌ B** zum dynamischen Gleichgewicht.
+
+Dieses Modell ist das erste einsatzbereite Modul des offenen **NaWi-Modelllabors**:
+https://github.com/Draupernaut/nawi_modelllabor
 
 ## Funktionen
 - stochastische Hin- und Rückreaktion
@@ -9,15 +12,19 @@ Interaktives Unterrichtsmodell für **A + B ⇌ C**.
 - Anzeige von Reaktionsgeschwindigkeiten, Q und Modell-K
 - gezielte Störungen des Gleichgewichts
 - Volumenänderung
+- Zwei-Seiten-/Tauschmodell
+- feste oder prozentuale Übertragung pro Runde
+- Schritt- und Auto-Modus
 - für Tablet/iPad optimiert
 - Offline-Cache nach dem ersten erfolgreichen Laden
 
 ## GitHub Pages
-Das Repository ist so vorbereitet, dass `index.html` direkt aus dem Repository-Root veröffentlicht werden kann.
-
-GitHub: **Settings → Pages → Deploy from a branch → main → /(root)**
-
-Danach die veröffentlichte Seite einmal in Safari auf dem iPad öffnen und über **Teilen → Zum Home-Bildschirm** ablegen.
+Die veröffentlichte Version läuft unter:
+https://draupernaut.github.io/chemisches_gleichgewicht/
 
 ## Didaktischer Hinweis
-Die Teilchenbewegung ist eine Visualisierung, keine Molekulardynamik. Die Reaktionsereignisse werden stochastisch aus modellhaften Geschwindigkeitsansätzen erzeugt.
+Die Teilchenbewegung ist eine Visualisierung, keine Molekulardynamik. Die Reaktionsereignisse werden stochastisch aus modellhaften Geschwindigkeitsansätzen erzeugt. Modellannahmen und Modellgrenzen sollen im Unterricht ausdrücklich thematisiert werden.
+
+## Lizenzen
+- Programmcode: **MIT** (`LICENSE`)
+- eigene didaktische Inhalte und redaktionelle Grafiken: **CC BY-SA 4.0** (`LICENSE-CONTENT.md`)
