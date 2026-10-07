@@ -1,0 +1,59 @@
+/* UI-Nachschärfung: klare Steuerung + robuster Präsentationsmodus */
+.title-block{min-width:0}
+.header-actions{align-items:center}
+.action-btn,.presentation-btn{min-height:44px}
+.presentation-btn{border-style:dashed}
+.compact-btn{padding:7px 10px!important;font-size:12px}
+.section-kicker{font-size:11px;color:var(--muted);margin-top:2px}
+
+.toolbar{align-items:flex-end;padding:12px 12px 0}
+.toolbar-group{display:flex;flex-direction:column;gap:5px}
+.toolbar-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:850;padding-left:2px}
+.toolbar .segment{padding:3px;border:1px solid rgba(72,96,135,.34);border-radius:12px;background:rgba(7,12,25,.42)}
+.toolbar .segment button{border-color:transparent;background:transparent;color:var(--muted)}
+.toolbar .segment button.active{background:#1a2b4c;border-color:#526f99;color:var(--text);outline:none}
+.step-action{display:none;min-height:38px}
+body.chem-step-mode .step-action{display:inline-flex;align-items:center}
+.rate-strip{grid-template-columns:1fr 1fr}
+.rate.step{display:none}
+body.chem-step-mode .rate.step{display:flex;grid-column:1/-1}
+
+.primary-stats{grid-template-columns:repeat(3,1fr)}
+.inline-details{margin-top:9px;border:0;border-radius:12px;background:rgba(7,12,25,.34)}
+.inline-details summary{padding:9px 10px;font-size:12px;color:var(--muted);font-weight:800}
+.inline-details .compact-stats{padding:0 9px 9px;grid-template-columns:repeat(3,1fr)}
+.inline-details .stat{padding:8px}
+.inline-details .stat strong{font-size:15px}
+
+/* Präsentationsmodus: bewusst kein natives Browser-Fullscreen. Das vermeidet iPad-Abbrüche durch Scroll-/Systemgesten. */
+body.presentation-mode{overflow:hidden;overscroll-behavior:none}
+body.presentation-mode .app{position:fixed;inset:0;z-index:9990;max-width:none;margin:0;padding:10px 12px 14px;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:radial-gradient(circle at 10% 0%,rgba(78,199,255,.08),transparent 36%),radial-gradient(circle at 95% 8%,rgba(255,213,79,.08),transparent 32%),var(--bg)}
+body.presentation-mode header{position:sticky;top:0;z-index:20;margin:-10px -12px 10px;padding:10px 12px;background:rgba(7,11,22,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(73,96,134,.45)}
+body.presentation-mode .eyebrow,body.presentation-mode .sub{display:none}
+body.presentation-mode h1{font-size:clamp(18px,2.2vw,25px);margin:0}
+body.presentation-mode .model-tabs{margin-bottom:10px;box-shadow:none}
+body.presentation-mode .bottom-grid,body.presentation-mode .model-panel>details{display:none}
+body.presentation-mode .top-grid{gap:10px}
+body.presentation-mode .canvas-wrap{height:calc(100dvh - 230px);min-height:420px}
+body.presentation-mode .exchange-canvas-wrap{height:calc(100dvh - 220px);min-height:420px}
+body.presentation-mode .graph-card{box-shadow:none}
+body.presentation-mode .presentation-btn{background:#31202a;border-color:#8d5366}
+
+@media(max-width:980px){
+  .primary-stats,.inline-details .compact-stats{grid-template-columns:repeat(3,1fr)}
+  body.presentation-mode .canvas-wrap,body.presentation-mode .exchange-canvas-wrap{height:55dvh;min-height:360px}
+}
+@media(max-width:700px){
+  header{gap:9px}
+  .header-actions{gap:6px}
+  .header-actions button{padding:9px 10px}
+  .toolbar{align-items:stretch}
+  .toolbar-group{width:100%}
+  .toolbar .segment{display:grid;grid-template-columns:1fr 1fr}
+  .toolbar .segment button{text-align:center}
+  .step-action{width:100%;justify-content:center}
+  .primary-stats,.inline-details .compact-stats{grid-template-columns:1fr 1fr 1fr}
+  body.presentation-mode .app{padding:8px}
+  body.presentation-mode header{margin:-8px -8px 8px;padding:8px}
+  body.presentation-mode .canvas-wrap,body.presentation-mode .exchange-canvas-wrap{height:52dvh;min-height:330px}
+}
