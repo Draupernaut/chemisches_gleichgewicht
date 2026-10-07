@@ -1,5 +1,5 @@
-const CACHE = 'chemisches-gleichgewicht-v4';
-const ASSETS = ['./', './index.html', './styles.css', './app.js', './exchange.js', './manifest.webmanifest', './icon.svg'];
+const CACHE = 'chemisches-gleichgewicht-v5';
+const ASSETS = ['./', './index.html', './styles.css', './ui.css', './app.js', './exchange.js', './ui.js', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
